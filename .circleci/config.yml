@@ -1,12 +1,13 @@
 version: 2
-jobs:
-	build:
-		docker:
-			- image: circleci/python:3.9
-		steps:
-			- checkout
-			- run:
-				command: pip install -r requirements/dev.txt
+	jobs:
+		build:
+			docker:
+					- image: circleci/python:3.9
+			steps:
+				- checkout
+				- run:
+					  name: Installation des dépendances python
+					  command: pip install -r requirements/dev.txt
 
 workflows:
 	version: 2
