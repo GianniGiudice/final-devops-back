@@ -19,17 +19,17 @@ jobs:
             - "venv"
   flask_tests:
     docker:
-      - image: circleci/postgres:9.6.9-alpine
-        environment:
-          POSTGRES_USER: myUsr
-          POSTGRES_PASSWORD: somePwd
-          POSTGRES_BD: psdb
       - image: circleci/python:3.9-buster-node-browsers
         environment:
           DATABASE_URL: postgresql://myUsr:somePwd@localhost:5432/psdb
           CONDUIT_SECRET: 'something-really-secret'
           FLASK_APP: autoapp.py
           FLASK_DEBUG: 1
+      - image: circleci/postgres:9.6.9-alpine
+        environment:
+          POSTGRES_USER: myUsr
+          POSTGRES_PASSWORD: somePwd
+          POSTGRES_BD: psdb
     steps:
       - checkout
       - restore_cache:
@@ -39,6 +39,7 @@ jobs:
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
 workflows:
+  version: 2
   tp:
     jobs:
       - build
