@@ -21,7 +21,7 @@ jobs:
     docker:
       - image: circleci/python:3.9-buster-node-browsers
         environment:
-          DATABASE_URL: postgresql://gianni:gianni@localhost:5432/database
+          DATABASE_URL: postgresql://gianni:gianni@localhost:5432/postgres
           CONDUIT_SECRET: 'something-really-secret'
           FLASK_APP: autoapp.py
           FLASK_DEBUG: 1
@@ -29,7 +29,7 @@ jobs:
         environment:
           POSTGRES_USER: gianni
           POSTGRES_PASSWORD: gianni
-          POSTGRES_BD: database
+          POSTGRES_BD: postgres
     steps:
       - checkout
       - restore_cache:
