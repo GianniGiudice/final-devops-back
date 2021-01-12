@@ -8,9 +8,8 @@ jobs:
 			- run:
 				command: pip install -r requirements/dev.txt
 
-
 workflows:
 	version: 2
 	build-test:
 		jobs:
-			-build
+			- build
