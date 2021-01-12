@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/python:3.9-buster-node-browser
+      - image: circleci/python:3.9-buster-node-browsers
     steps:
       - checkout
       - restore_cache:
@@ -24,7 +24,7 @@ jobs:
           POSTGRES_USER: myUsr
           POSTGRES_PASSWORD: somePwd
           POSTGRES_BD: psdb
-      - image: circleci/python:3.9-buster-node-browser
+      - image: circleci/python:3.9-buster-node-browsers
         environment:
           DATABASE_URL: postgresql://myUsr:somePwd@localhost:5432/psdb
           CONDUIT_SECRET: 'something-really-secret'
