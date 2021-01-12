@@ -17,9 +17,32 @@ jobs:
           key: deps-{{ checksum "requirements/dev.txt"}}-{{ .Environment.CACHE_VERSION }}
           paths:
             - "venv"
+  flask_tests:
+    docker:
+      - image: circleci/postgres:9.6.9-alpine
+        environment:
+          POSTGRES_USER: myUsr
+          POSTGRES_PASSWORD: somePwd
+          POSTGRES_BD: psdb
+      - image: circleci/python:3.9
+        environment:
+          DATABASE_URL: postgresql://myUsr:somePwd@localhost:5432/psdb
+          CONDUIT_SECRET: 'something-really-secret'
+          FLASK_APP: autoapp.py
+          FLASK_DEBUG: 1
+    steps:
+      - checkout
+      - restore_cache:
+          key: deps-{{ checksum "requirements/dev.txt"}}-{{ .Environment.CACHE_VERSION }}
+      - run:
+          name: Attente de postgres
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
 workflows:
   version: 2
   tp:
     jobs:
       - build
+      - flask_tests:
+          requires:
+            - build
