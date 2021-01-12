@@ -5,9 +5,18 @@ jobs:
       - image: circleci/python:3.9
     steps:
       - checkout
+      - restore_cache:
+          key: deps-{{ checksum "requirements/dev.txt"}}-{{ .Environment.CACHE_VERSION }}
       - run:
           name: Installation des dépendances python
-          command: pip install -r requirements/dev.txt
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements/dev.txt
+      -save_cache:
+        key: deps-{{ checksum "requirements/dev.txt"}}-{{ .Environment.CACHE_VERSION }}
+        paths:
+          - "venv"
 
 workflows:
   version: 2
