@@ -1,10 +1,4 @@
 version: 2
-
-workflows:
-  tp:
-    jobs:
-      - build
-
 jobs:
   build:
     docker:
@@ -14,3 +8,9 @@ jobs:
       - run:
           name: Installation des dépendances python
           command: pip install -r requirements/dev.txt
+
+workflows:
+  version: 2
+  tp:
+    jobs:
+      - build
