@@ -41,6 +41,7 @@ jobs:
           name: Tests Flask
           command: |
             . venv/bin/activate
+            flask db migrate
             flask db upgrade
             flask test
 
