@@ -72,3 +72,7 @@ workflows:
       - flask_tests:
           requires:
             - build
+      - deploy-heroku:
+          context: Heroku
+          requires:
+            - build
