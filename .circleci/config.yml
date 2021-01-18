@@ -88,9 +88,9 @@ workflows:
   tp:
     jobs:
       - build
-      - flask_tests:
-          requires:
-            - build
+      #- flask_tests:
+      #    requires:
+      #      - build
       - deploy-heroku:
           context: Heroku
           requires:
